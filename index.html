@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crochet by Dracilla — Handmade Crochet Clothing &amp; Decor</title>
+<meta name="description" content="Slow-made crochet tops, accessories and hanging florals, stitched by hand one skein at a time.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,500;0,600;1,400;1,500&family=Nunito+Sans:wght@400;600;700;800&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ================= Announcement bar ================= -->
+<div class="announce-bar">
+  <div class="announce-track">
+    <span>Made to order, with love 🧶</span>
+    <span>Free island-wide shipping over LKR 8,000</span>
+    <span>Every piece hand-stitched by Dracilla</span>
+  </div>
+</div>
+
+<!-- ================= Header ================= -->
+<header class="site-header">
+  <div class="header-row">
+    <a href="#" class="brand" aria-label="Crochet by Dracilla home">
+      <span class="brand-mark">Crochet by <span>Dracilla</span></span>
+    </a>
+
+    <nav class="main-nav" aria-label="Primary">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#shop">Shop</a></li>
+        <li><a href="#tops">Tops</a></li>
+        <li><a href="#accessories">Accessories</a></li>
+        <li><a href="#decor">Home Decor</a></li>
+        <li><a href="#newsletter">Custom Orders</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-btn" aria-label="Search products">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" aria-label="Account">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-6 8-6s8 2 8 6"/></svg>
+      </button>
+      <button class="icon-btn" aria-label="Shopping bag, 0 items">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        <span class="cart-count">0</span>
+      </button>
+      <button class="nav-toggle" aria-label="Open menu" id="navToggle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile nav -->
+<div class="mobile-nav-overlay" id="navOverlay"></div>
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+  <div class="mobile-nav-head">
+    <span class="brand-mark">Crochet by <span>Dracilla</span></span>
+    <button class="mobile-nav-close" id="navClose" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#tops">Tops</a></li>
+    <li><a href="#accessories">Accessories</a></li>
+    <li><a href="#decor">Home Decor</a></li>
+    <li><a href="#newsletter">Custom Orders</a></li>
+  </ul>
+</nav>
+
+<!-- ================= Hero ================= -->
+<section class="hero" id="home">
+  <div class="hero-media">
+    <img src="assets/hero4.jpg" alt="Handmade crochet bunny plushie in a tutu, resting on balls of pastel yarn with knitting needles">
+    <div class="hero-content">
+      <div class="hero-card">
+        <span class="hero-script">welcome to the yarn shed</span>
+        <h1>Handmade <em>crochet</em>,<br>stitched slow &amp; sweet.</h1>
+        <p>Cropped tops, cosy accessories and hanging florals — every piece looped by hand in small batches from my little corner in Maharagama.</p>
+        <div class="hero-cta-row">
+          <a href="#shop" class="btn btn-primary">Shop New Arrivals</a>
+          <a href="#newsletter" class="btn btn-ghost">Request a Custom Piece</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Feature strip ================= -->
+<section class="feature-strip">
+  <div class="container feature-grid">
+    <div class="feature-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 2.5 5 6 5c2 0 3.5 1.2 4 2.2C10.5 6.2 12 5 14 5c3.5 0 5.5 3.5 3.5 7.5C15 16.65 12 21 12 21Z"/></svg>
+      <div>
+        <h4>Made With Love</h4>
+        <p>Every stitch by hand</p>
+      </div>
+    </div>
+    <div class="feature-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+      <div>
+        <h4>Made To Order</h4>
+        <p>3&ndash;7 days to stitch</p>
+      </div>
+    </div>
+    <div class="feature-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 8h-3V4H3v13h2"/><rect x="7" y="8" width="14" height="9" rx="1.5"/><circle cx="10.5" cy="19.5" r="1.5"/><circle cx="18" cy="19.5" r="1.5"/></svg>
+      <div>
+        <h4>Island-Wide Delivery</h4>
+        <p>Free over LKR 8,000</p>
+      </div>
+    </div>
+    <div class="feature-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M3 12h3M18 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/><circle cx="12" cy="12" r="4"/></svg>
+      <div>
+        <h4>Small Batch</h4>
+        <p>Only a few of each</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="scallop-divider" aria-hidden="true">
+  <svg viewBox="0 0 400 20" preserveAspectRatio="none">
+    <path d="M0,0 
+      Q 8.33,20 16.67,0 
+      Q 25,20 33.33,0 
+      Q 41.67,20 50,0 
+      Q 58.33,20 66.67,0 
+      Q 75,20 83.33,0 
+      Q 91.67,20 100,0
+      Q 108.33,20 116.67,0
+      Q 125,20 133.33,0
+      Q 141.67,20 150,0
+      Q 158.33,20 166.67,0
+      Q 175,20 183.33,0
+      Q 191.67,20 200,0
+      Q 208.33,20 216.67,0
+      Q 225,20 233.33,0
+      Q 241.67,20 250,0
+      Q 258.33,20 266.67,0
+      Q 275,20 283.33,0
+      Q 291.67,20 300,0
+      Q 308.33,20 316.67,0
+      Q 325,20 333.33,0
+      Q 341.67,20 350,0
+      Q 358.33,20 366.67,0
+      Q 375,20 383.33,0
+      Q 391.67,20 400,0
+      L400,0 L0,0 Z" fill="var(--vanilla-cream)"/>
+  </svg>
+</div>
+
+<!-- ================= Shop by category ================= -->
+<section class="categories">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow-script">shop by category</span>
+      <h2>Find your next favourite</h2>
+      <p>From wearable stitches to little florals for the wall — three baskets, all handmade.</p>
+    </div>
+
+    <div class="category-grid">
+      <a href="#tops" class="category-card">
+        <img src="assets/products/lavender-crop-top.png" alt="Lavender crochet crop top">
+        <div class="category-label">
+          <div>
+            <span>7 pieces</span>
+            <h3>Tops</h3>
+          </div>
+          <span class="category-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <a href="#accessories" class="category-card">
+        <img src="assets/products/beanie-pink-pompom.png" alt="Cream crochet beanie with pink pom-pom">
+        <div class="category-label">
+          <div>
+            <span>1 piece</span>
+            <h3>Accessories</h3>
+          </div>
+          <span class="category-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <a href="#decor" class="category-card">
+        <img src="assets/products/rosebud-hanging-pot.jpeg" alt="Hanging crochet flower pot in red and pink">
+        <div class="category-label">
+          <div>
+            <span>3 pieces</span>
+            <h3>Home Decor</h3>
+          </div>
+          <span class="category-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Shop / product grid ================= -->
+<section class="shop-section" id="shop">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow-script">fresh off the hook</span>
+      <h2>New Arrivals</h2>
+      <p>Each listing is a single handmade piece — colours and trims may vary ever so slightly, just like real yarn does.</p>
+    </div>
+
+    <div class="shop-toolbar" role="group" aria-label="Filter products by category">
+      <button class="filter-chip is-active" data-filter="all">All</button>
+      <button class="filter-chip" data-filter="tops">Tops</button>
+      <button class="filter-chip" data-filter="accessories">Accessories</button>
+      <button class="filter-chip" data-filter="decor">Home Decor</button>
+    </div>
+
+    <div class="product-grid" id="productGrid">
+
+      <article class="product-card" data-category="tops">
+        <div class="product-media">
+          <span class="product-badge">Bestseller</span>
+          <img src="assets/products/heart-granny-cardigan.png" alt="Red and white heart granny square crochet cardigan">
+          <button class="product-quick" aria-label="Quick view Sweetheart Granny Cardigan">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+        <div class="product-info">
+          <span class="product-cat">Tops</span>
+          <h3>Sweetheart Granny Square Cardigan</h3>
+          <p class="product-price">LKR 12,500</p>
+        </div>
+      </article>
+
+      <article class="product-card" data-category="tops">
+        <div class="product-media">
+          <span class="product-badge badge-new">New</span>
+          <img src="assets/products/striped-crop-top.png" alt="Purple, pink and white striped crochet crop top">
+          <button class="product-quick" aria-label="Quick view Sherbet Stripe Crop Top">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+        <div class="product-info">
+          <span class="product-cat">Tops</span>
+          <h3>Sherbet Stripe Crop Top</h3>
+          <p class="product-price">LKR 6,800</p>
+        </div>
+      </article>
+
+      <article class="product-card" data-category="accessories">
+        <div class="product-media">
+          <span class="product-badge badge-new">New</span>
+          <img src="assets/products/beanie-pink-pompom.png" alt="Cream crochet beanie with pink pom-pom and flowers">
+          <button class="product-quick" aria-label="Quick view Blossom Pom Beanie">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+        <div class="product-info">
+          <span class="product-cat">Accessories</span>
+          <h3>Blossom Pom Beanie</h3>
+          <p class="product-price">LKR 4,200</p>
+        </div>
+      </article>
+
+      <article class="product-card" data-category="tops">
+        <div class="product-media">
+          <img src="assets/products/lavender-crop-top.png" alt="Lavender purple crochet crop top with straps">
+          <button class="product-quick" aria-label="Quick view Lavender Bloom Crop Top">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+        <div class="product-info">
+          <span class="product-cat">Tops</span>
+          <h3>Lavender Bloom Crop Top</h3>
+          <p class="product-price">LKR 5,900</p>
+        </div>
+      </article>
+
+      <article class="product-card" data-category="tops">
+        <div class="product-media">
+          <img src="assets/products/violet-ribbed-vest.png" alt="Dusty violet ribbed crochet vest with satin ribbon ties">
+          <button class="product-quick" aria-label="Quick view Dusty Violet Ribbed Vest">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+        <div class="product-info">
+          <span class="product-cat">Tops</span>
+          <h3>Dusty Violet Ribbed Vest</h3>
+          <p class="product-price">LKR 7,400</p>
+        </div>
+      </article>
+
+      <article class="product-card" data-category="tops">
+        <div class="product-media">
+          <img src="assets/products/cocoa-button-cami.png" alt="Brown ribbed crochet cami with black buttons">
+          <button class="product-quick" aria-label="Quick view Cocoa Button-Up Cami">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+        <div class="product-info">
+          <span class="product-cat">Tops</span>
+          <h3>Cocoa Button-Up Cami</h3>
+          <p class="product-price">LKR 6,200</p>
+        </div>
+      </article>
+
+      <article class="product-card" data-category="tops">
+        <div class="product-media">
+          <span class="product-badge">Bestseller</span>
+          <img src="assets/products/vanilla-halter-top.png" alt="White and tan crochet halter top with flower detail">
+          <button class="product-quick" aria-label="Quick view Vanilla Daisy Halter Top">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+        <div class="product-info">
+          <span class="product-cat">Tops</span>
+          <h3>Vanilla Daisy Halter Top</h3>
+          <p class="product-price">LKR 6,500</p>
+        </div>
+      </article>
+
+      <article class="product-card" data-category="tops">
+        <div class="product-media">
+          <img src="assets/products/merlot-crop-top.png" alt="Burgundy square neck crochet crop top">
+          <button class="product-quick" aria-label="Quick view Merlot Square-Neck Crop">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+        <div class="product-info">
+          <span class="product-cat">Tops</span>
+          <h3>Merlot Square-Neck Crop</h3>
+          <p class="product-price">LKR 6,900</p>
+        </div>
+      </article>
+
+      <article class="product-card" data-category="decor">
+        <div class="product-media">
+          <span class="product-badge badge-new">New</span>
+          <img src="assets/products/marigold-vine-wallhanging.jpeg" alt="Green crochet vine wall hanging with orange flowers">
+          <button class="product-quick" aria-label="Quick view Marigold Vine Wall Hanging">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+        <div class="product-info">
+          <span class="product-cat">Home Decor</span>
+          <h3>Marigold Vine Wall Hanging</h3>
+          <p class="product-price">LKR 8,900</p>
+        </div>
+      </article>
+
+      <article class="product-card" data-category="decor">
+        <div class="product-media">
+          <img src="assets/products/sweetpea-hanging-jar.jpeg" alt="Hanging crochet jar planter with pink and purple flowers">
+          <button class="product-quick" aria-label="Quick view Sweet Pea Hanging Jar Planter">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+        <div class="product-info">
+          <span class="product-cat">Home Decor</span>
+          <h3>Sweet Pea Hanging Jar Planter</h3>
+          <p class="product-price">LKR 5,400</p>
+        </div>
+      </article>
+
+      <article class="product-card" data-category="decor">
+        <div class="product-media">
+          <img src="assets/products/rosebud-hanging-pot.jpeg" alt="Hanging crochet flower pot in red and pink blooms">
+          <button class="product-quick" aria-label="Quick view Rosebud Hanging Pot">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+        <div class="product-info">
+          <span class="product-cat">Home Decor</span>
+          <h3>Rosebud Hanging Pot</h3>
+          <p class="product-price">LKR 5,900</p>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="shop-more">
+      <a href="#newsletter" class="btn btn-outline">Ask About Custom Colours</a>
+    </div>
+  </div>
+</section>
+
+<!-- anchors for footer/nav targets that reuse the shop grid -->
+<span id="tops"></span><span id="accessories"></span><span id="decor"></span>
+
+<!-- ================= Signature quote strip ================= -->
+<section class="quote-strip">
+  <div class="container">
+    <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+    <p class="quote-text">Every loop is a little decision — that's what makes handmade feel different from bought.</p>
+    <span class="quote-attr">— Dracilla</span>
+  </div>
+</section>
+
+<!-- ================= Newsletter ================= -->
+<section class="newsletter" id="newsletter">
+  <div class="container newsletter-inner">
+    <div class="newsletter-copy">
+      <h2>Stay in the loop</h2>
+      <p>New drops, restocks and the odd behind-the-scenes yarn ball. No spam, just stitches.</p>
+    </div>
+    <form class="newsletter-form" onsubmit="return false;">
+      <input type="email" placeholder="Enter your email" aria-label="Email address" required>
+      <button type="submit" class="btn btn-primary">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<!-- ================= Footer ================= -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <span class="brand-mark">Crochet by <span>Dracilla</span></span>
+      <p>Small-batch crochet clothing and hanging florals, hand-stitched skein by skein. Based in Maharagama, shipped island-wide.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 3c.5 2.5 2 4 5 4.2V11c-1.9 0-3.5-.6-5-1.7V15a6 6 0 1 1-6-6c.3 0 .7 0 1 .1v3.2a2.8 2.8 0 1 0 2 2.7V3h3Z"/></svg></a>
+        <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 12a8 8 0 1 1-3.6-6.7"/><path d="M20 12a8 8 0 0 1-11.9 7L4 20l1.1-4A8 8 0 0 1 20 12Z"/></svg></a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h5>Shop</h5>
+      <ul>
+        <li><a href="#tops">Tops</a></li>
+        <li><a href="#accessories">Accessories</a></li>
+        <li><a href="#decor">Home Decor</a></li>
+        <li><a href="#shop">New Arrivals</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h5>Support</h5>
+      <ul>
+        <li><a href="#">Shipping &amp; Care</a></li>
+        <li><a href="#">Size Guide</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#newsletter">Custom Orders</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h5>Studio</h5>
+      <ul>
+        <li><a href="#">About Dracilla</a></li>
+        <li><a href="#">Our Process</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container footer-bottom">
+    <span>&copy; 2026 Crochet by Dracilla. All pieces handmade to order.</span>
+    <span>Designed with 🧶 in Maharagama</span>
+  </div>
+</footer>
+
+<script>
+  // Mobile nav drawer
+  const navToggle = document.getElementById('navToggle');
+  const navClose = document.getElementById('navClose');
+  const mobileNav = document.getElementById('mobileNav');
+  const navOverlay = document.getElementById('navOverlay');
+
+  function openNav() {
+    mobileNav.classList.add('is-open');
+    navOverlay.classList.add('is-open');
+  }
+  function closeNav() {
+    mobileNav.classList.remove('is-open');
+    navOverlay.classList.remove('is-open');
+  }
+  navToggle && navToggle.addEventListener('click', openNav);
+  navClose && navClose.addEventListener('click', closeNav);
+  navOverlay && navOverlay.addEventListener('click', closeNav);
+  mobileNav && mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+
+  // Product category filter
+  const chips = document.querySelectorAll('.filter-chip');
+  const cards = document.querySelectorAll('.product-card');
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      chips.forEach(c => c.classList.remove('is-active'));
+      chip.classList.add('is-active');
+      const filter = chip.dataset.filter;
+      cards.forEach(card => {
+        const show = filter === 'all' || card.dataset.category === filter;
+        card.style.display = show ? '' : 'none';
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
