@@ -13,14 +13,22 @@ A handmade crochet clothing & home decor storefront — a static, responsive hom
 
 ## About
 
-Crochet by Dracilla is a one-page storefront for a small, hand-stitched crochet brand — cropped tops, accessories, and hanging floral decor, made to order in small batches. This repo contains the front-end for the site's home page: hero, categories, shop grid with filtering, a slide-out cart, and a newsletter/footer.
+Crochet by Dracilla is a small storefront for a hand-stitched crochet brand — cropped tops, accessories, and hanging floral decor, made to order in small batches. This repo contains the front-end for two pages: the **home page** (hero, categories, a New Arrivals preview, newsletter/footer) and the **shop page** (searchable, filterable catalog of every piece).
 
 ## Features
 
-- 🎨 **Brand palette as CSS custom properties** — six colors (Vanilla Cream, Blush Petal, Rosewood, Sage Leaf, Misty Sky, Midnight Lagoon) defined once in `style.css` under `:root` and used throughout
-- 🛍️ **Shop grid with category filtering** — All / Tops / Accessories / Home Decor, no page reload
-- 🛒 **Slide-out cart drawer** (opens from the left) — add to bag, adjust quantities, remove items, live subtotal, empty-state messaging
-- 📱 **Fully responsive** — tested at desktop (1440px), tablet (820px), and mobile (390px) breakpoints, with a slide-in mobile nav drawer
+- 🎨 **Brand palette as CSS custom properties** — six colors (Vanilla Cream, Blush Petal, Rosewood, Sage Leaf, Misty Sky, Midnight Lagoon) and the type scale defined once in `style.css` under `:root`, and reused by `shop.css` — reskin once, both pages update
+- 🔍 **Full shop page** (`shop.html`) — every product in one searchable, filterable grid:
+  - Live text search by product name
+  - Filter by category, price range, and tag (New / Bestseller), combinable
+  - Sort by Featured, Price (low↔high), or Name
+  - Removable "active filter" chips + result count that update live
+  - Category links from the header/footer deep-link into the shop with a filter pre-applied (`shop.html?category=tops`)
+  - Empty state when a search/filter combo matches nothing
+  - Filters live in a right-side drawer on mobile/tablet, a sticky sidebar on desktop
+- 🛍️ **Shop grid with category filtering** on the homepage's New Arrivals preview — All / Tops / Accessories / Home Decor, no page reload
+- 🛒 **Slide-out cart drawer** (opens from the left) — add to bag, adjust quantities, remove items, live subtotal, empty-state messaging; cart contents are saved to `localStorage`, so the bag persists as you move between `index.html` and `shop.html`
+- 📱 **Fully responsive** — tested at desktop (1440px), tablet (820px), and mobile (390px) breakpoints, with slide-in nav and filter drawers
 - ♿ **Accessible by default** — semantic HTML, visible focus states, aria-labels on icon buttons, `prefers-reduced-motion` respected
 - 🧵 **Signature details** — a hand-drawn scallop-edge SVG divider and stitched hover states that nod to the craft itself
 - ⚡ **Zero dependencies** — Google Fonts only; everything else is hand-written HTML/CSS/JS
@@ -38,24 +46,30 @@ Crochet by Dracilla is a one-page storefront for a small, hand-stitched crochet 
 
 ```
 crochet-by-dracilla/
-├── index.html              # Homepage markup (single page)
-├── style.css                # All styling, incl. brand palette as CSS variables
+├── index.html               # Homepage — hero, categories, New Arrivals preview
+├── shop.html                 # Full catalog — search, filters, sort
+├── style.css                  # Shared: brand palette (:root), fonts, header/nav,
+│                               #   buttons, product-card, cart drawer, footer
+├── shop.css                    # shop.html-only: search bar, sidebar/drawer
+│                               #   filters, active-filter chips, empty state
 ├── README.md
-└── images/
-    ├── hero-crochet-plushies.jpg
+└── assets/
+    ├── hero4.jpg
     └── products/
-        ├── beanie-pink-pompom.jpg
-        ├── cocoa-button-cami.jpg
-        ├── heart-granny-cardigan.jpg
-        ├── lavender-crop-top.jpg
-        ├── marigold-vine-wallhanging.jpg
-        ├── merlot-crop-top.jpg
-        ├── rosebud-hanging-pot.jpg
-        ├── striped-crop-top.jpg
-        ├── sweetpea-hanging-jar.jpg
-        ├── vanilla-halter-top.jpg
-        └── violet-ribbed-vest.jpg
+        ├── beanie-pink-pompom.png
+        ├── cocoa-button-cami.png
+        ├── heart-granny-cardigan.png
+        ├── lavender-crop-top.png
+        ├── marigold-vine-wallhanging.jpeg
+        ├── merlot-crop-top.png
+        ├── rosebud-hanging-pot.jpeg
+        ├── striped-crop-top.png
+        ├── sweetpea-hanging-jar.jpeg
+        ├── vanilla-halter-top.png
+        └── violet-ribbed-vest.png
 ```
+
+`shop.html` links `style.css` first, then `shop.css` — `shop.css` has no color or font values of its own, it only reads the `--variables` defined in `style.css`'s `:root`. Keep that link order if you ever split styles further.
 
 ## Getting started
 
@@ -77,9 +91,11 @@ python3 -m http.server 8080
 
 ## Customizing
 
-- **Colors** — edit the six variables at the top of `style.css` (`:root { ... }`) to reskin the whole site at once
-- **Products** — each product card in `index.html` is a self-contained `<article class="product-card">` with `data-id`, `data-name`, `data-price`, and `data-image` attributes that feed the cart; duplicate a card and update its content/image to add a new item
-- **Prices** — shown in LKR by default (`formatLKR()` in the inline `<script>` at the bottom of `index.html`); adjust the currency prefix there
+- **Colors** — edit the six variables at the top of `style.css` (`:root { ... }`) to reskin both pages at once (`shop.css` inherits them automatically)
+- **Products on the homepage** — each card in `index.html`'s New Arrivals section is a self-contained `<article class="product-card">` with `data-id`, `data-name`, `data-price`, and `data-image` attributes that feed the cart; duplicate a card and update its content/image to add a new item
+- **Products on the shop page** — `shop.html` renders its grid from a single `PRODUCTS` array near the top of its inline `<script>`; add, remove, or edit an item there (id, name, price, category, image, alt, badge) and it flows through to search, filters, sort, and the cart automatically — no HTML editing needed
+- **Prices** — shown in LKR by default (`formatLKR()` in each page's inline `<script>`); adjust the currency prefix there
+- **Filter categories/price bands** — edit the checkbox lists in `shop.html`'s sidebar and mobile drawer (`name="category"`, `name="price"`, `name="tag"`, plus their `-m` mobile twins) — values must match the `category` field and price bands used in the `PRODUCTS` array
 - **Copy** — hero text, feature strip, quote strip, and newsletter copy are all plain text in `index.html`
 
 ## Browser support
@@ -88,20 +104,19 @@ Built with modern, broadly-supported CSS (Grid, Flexbox, `aspect-ratio`, custom 
 
 ## Roadmap / Future Plans
 
-This is currently a front-end-only homepage — the cart lives in memory and resets on refresh, and there's no backend behind it yet. Planned next steps:
+This is still a front-end-only site — no backend behind the cart, search, or filters yet (everything runs client-side against the hardcoded `PRODUCTS` array). Planned next steps:
 
 - [ ] **Real checkout flow** — wire the "Checkout" button to an actual order flow (WhatsApp order handoff, or a payment gateway like Stripe/PayHere for LKR)
-- [ ] **Persistent cart** — save cart contents across page reloads (`localStorage`, or a backend session once one exists)
 - [ ] **Product detail pages** — a dedicated page per item (larger photos, size/colour options, full description) instead of quick-add only
-- [ ] **Inventory & stock status** — mark made-to-order pieces as sold out / limited stock, ideally from a small CMS or spreadsheet-backed source instead of hardcoded HTML
-- [ ] **Search** — a simple product search/autocomplete in the header
+- [ ] **Inventory & stock status** — mark made-to-order pieces as sold out / limited stock, ideally from a small CMS or spreadsheet-backed source instead of the hardcoded `PRODUCTS` array
 - [ ] **Wishlist / save for later** — separate from the cart, for pieces someone's still deciding on
 - [ ] **Order tracking page** — for made-to-order pieces with a multi-day turnaround
 - [ ] **Additional pages** — About/Dracilla's story, Shipping & Care, Size Guide, and Contact currently link to `#` placeholders in the footer
 - [ ] **Newsletter integration** — connect the signup form to an actual email provider (Mailchimp, Buttondown, etc.) instead of a no-op submit
-- [ ] **Image optimization** — serve responsive `srcset` images and next-gen formats (WebP/AVIF) for faster mobile loads
+- [ ] **Image optimization** — serve responsive `srcset` images and next-gen formats (WebP/AVIF); several product photos are currently uncompressed PNGs (~1.5–2MB each), which is worth revisiting for mobile load times
 - [ ] **Analytics** — lightweight, privacy-respecting page/conversion tracking once the store is live
 - [ ] **Multi-currency support** — if selling beyond Sri Lanka, add currency conversion alongside the current LKR-only pricing
+- [ ] **Server-backed cart** — the cart is `localStorage`-only today (per-browser, not per-account); move it server-side once accounts/checkout exist so it survives a cleared cache or a new device
 
 Contributions or suggestions toward any of the above are welcome — open an issue or a PR.
 

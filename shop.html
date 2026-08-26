@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop All — Crochet by Dracilla</title>
+    <meta name="description"
+        content="Browse every handmade crochet piece from Crochet by Dracilla — tops, accessories and hanging florals. Filter by category and price, or search by name.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,500;0,600;1,400;1,500&family=Nunito+Sans:wght@400;600;700;800&family=Caveat:wght@500;600&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="shop.css">
+</head>
+
+<body>
+
+    <!-- ================= Announcement bar ================= -->
+    <div class="announce-bar">
+        <div class="announce-track">
+            <span>Made to order, with love 🧶</span>
+            <span>Free island-wide shipping over LKR 8,000</span>
+            <span>Every piece hand-stitched by Dracilla</span>
+        </div>
+    </div>
+
+    <!-- ================= Header ================= -->
+    <header class="site-header">
+        <div class="header-row">
+            <a href="index.html" class="brand" aria-label="Crochet by Dracilla home">
+                <span class="brand-mark">Crochet by <span>Dracilla</span></span>
+            </a>
+
+            <nav class="main-nav" aria-label="Primary">
+                <ul>
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="shop.html?category=tops">Tops</a></li>
+                    <li><a href="shop.html?category=accessories">Accessories</a></li>
+                    <li><a href="shop.html?category=decor">Home Decor</a></li>
+                    <li><a href="index.html#newsletter">Custom Orders</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <button class="icon-btn" aria-label="Search products" id="headerSearchBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <circle cx="11" cy="11" r="7" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                </button>
+                <button class="icon-btn" aria-label="Account">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <circle cx="12" cy="8" r="4" />
+                        <path d="M4 20c0-4 3.6-6 8-6s8 2 8 6" />
+                    </svg>
+                </button>
+                <button class="icon-btn" id="cartToggle" aria-label="Open shopping bag, 0 items" aria-haspopup="dialog">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M6 8h12l-1 12H7L6 8Z" />
+                        <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+                    </svg>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+                <button class="nav-toggle" aria-label="Open menu" id="navToggle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <line x1="3" y1="6" x2="21" y2="6" />
+                        <line x1="3" y1="12" x2="21" y2="12" />
+                        <line x1="3" y1="18" x2="21" y2="18" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile nav -->
+    <div class="mobile-nav-overlay" id="navOverlay"></div>
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+        <div class="mobile-nav-head">
+            <span class="brand-mark">Crochet by <span>Dracilla</span></span>
+            <button class="mobile-nav-close" id="navClose" aria-label="Close menu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </button>
+        </div>
+        <ul>
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="shop.html?category=tops">Tops</a></li>
+            <li><a href="shop.html?category=accessories">Accessories</a></li>
+            <li><a href="shop.html?category=decor">Home Decor</a></li>
+            <li><a href="index.html#newsletter">Custom Orders</a></li>
+        </ul>
+    </nav>
+
+    <!-- ================= Cart drawer (slides from left) ================= -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <aside class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Shopping bag">
+        <div class="cart-drawer-head">
+            <h2>Your Bag <span id="cartHeadCount">(0)</span></h2>
+            <button class="cart-close" id="cartClose" aria-label="Close bag">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="cart-drawer-body" id="cartBody">
+            <div class="cart-empty" id="cartEmpty">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M6 8h12l-1 12H7L6 8Z" />
+                    <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+                </svg>
+                <h3>Your bag is empty</h3>
+                <p>Add a few handmade favourites to get started.</p>
+                <button class="btn btn-outline" id="cartEmptyBtn">Continue Shopping</button>
+            </div>
+            <ul class="cart-items" id="cartItems"></ul>
+        </div>
+
+        <div class="cart-drawer-foot" id="cartFoot">
+            <div class="cart-subtotal-row">
+                <span>Subtotal</span>
+                <span id="cartSubtotal">LKR 0</span>
+            </div>
+            <p class="cart-note">Shipping and any custom colour notes are confirmed over WhatsApp before we start
+                stitching.</p>
+            <a href="index.html#newsletter" class="btn btn-primary cart-checkout" id="cartCheckout">Checkout</a>
+        </div>
+    </aside>
+
+    <!-- ================= Shop hero / breadcrumb ================= -->
+    <section class="shop-hero">
+        <div class="container">
+            <div class="shop-breadcrumb">
+                <a href="index.html">Home</a>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6" />
+                </svg>
+                <span>Shop</span>
+            </div>
+            <h1>Shop All Pieces</h1>
+            <p>Every handmade crochet top, accessory and hanging floral in one place — search, filter, and find your
+                next favourite.</p>
+        </div>
+    </section>
+
+    <!-- ================= Search + sort bar ================= -->
+    <div class="shop-search-wrap">
+        <div class="container shop-search-row">
+            <div class="shop-search-bar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <circle cx="11" cy="11" r="7" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <input type="text" id="searchInput"
+                    placeholder="Search pieces — e.g. &quot;cardigan&quot; or &quot;beanie&quot;"
+                    aria-label="Search products">
+                <button class="shop-search-clear" id="searchClear" aria-label="Clear search">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+
+            <button class="shop-filter-toggle" id="filterToggle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <line x1="4" y1="6" x2="20" y2="6" />
+                    <circle cx="9" cy="6" r="2" fill="var(--cream-soft)" />
+                    <line x1="4" y1="12" x2="20" y2="12" />
+                    <circle cx="15" cy="12" r="2" fill="var(--cream-soft)" />
+                    <line x1="4" y1="18" x2="20" y2="18" />
+                    <circle cx="7" cy="18" r="2" fill="var(--cream-soft)" />
+                </svg>
+                Filters
+                <span class="filter-active-dot" id="filterActiveDot"></span>
+            </button>
+
+            <div class="shop-sort">
+                <label for="sortSelect">Sort</label>
+                <select id="sortSelect">
+                    <option value="featured">Featured</option>
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                    <option value="name-asc">Name: A–Z</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= Shop layout: filters + results ================= -->
+    <section class="shop-layout">
+        <div class="container">
+
+            <!-- ---- Desktop sidebar filters ---- -->
+            <aside class="shop-sidebar" aria-label="Filter products">
+                <div class="filter-group">
+                    <div class="filter-group-head">
+                        <h4>Category</h4>
+                        <button class="filter-clear-one" data-clear="category">Clear</button>
+                    </div>
+                    <label class="filter-option">
+                        <input type="checkbox" name="category" value="tops">
+                        Tops <span class="count">(7)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" name="category" value="accessories">
+                        Accessories <span class="count">(1)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" name="category" value="decor">
+                        Home Decor <span class="count">(3)</span>
+                    </label>
+                </div>
+
+                <div class="filter-group">
+                    <div class="filter-group-head">
+                        <h4>Price</h4>
+                        <button class="filter-clear-one" data-clear="price">Clear</button>
+                    </div>
+                    <label class="filter-option">
+                        <input type="checkbox" name="price" value="0-5000">
+                        Under LKR 5,000
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" name="price" value="5000-8000">
+                        LKR 5,000 &ndash; 8,000
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" name="price" value="8000-999999">
+                        Over LKR 8,000
+                    </label>
+                </div>
+
+                <div class="filter-group">
+                    <div class="filter-group-head">
+                        <h4>Tag</h4>
+                        <button class="filter-clear-one" data-clear="tag">Clear</button>
+                    </div>
+                    <label class="filter-option">
+                        <input type="checkbox" name="tag" value="new">
+                        New Arrivals
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" name="tag" value="bestseller">
+                        Bestsellers
+                    </label>
+                </div>
+
+                <button class="btn btn-outline filter-clear-all" id="clearAllDesktop">Clear All Filters</button>
+            </aside>
+
+            <!-- ---- Results ---- -->
+            <div class="shop-results">
+                <div class="shop-results-head">
+                    <p class="shop-result-count" id="resultCount">Showing <strong>11</strong> of <strong>11</strong>
+                        pieces</p>
+                    <div class="active-filter-chips" id="activeChips"></div>
+                </div>
+
+                <div class="product-grid" id="productGrid"></div>
+
+                <div class="shop-empty-state" id="emptyState">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round">
+                        <circle cx="11" cy="11" r="7" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                    <h3>No pieces match yet</h3>
+                    <p>Try clearing a filter or searching a different word — or ask about a custom colourway.</p>
+                    <button class="btn btn-outline" id="emptyClearBtn">Clear Filters</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ---- Mobile filter drawer ---- -->
+    <div class="filter-drawer-overlay" id="filterOverlay"></div>
+    <aside class="filter-drawer" id="filterDrawer" role="dialog" aria-modal="true" aria-label="Filter products">
+        <div class="filter-drawer-head">
+            <h2>Filters</h2>
+            <button class="filter-drawer-close" id="filterDrawerClose" aria-label="Close filters">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </button>
+        </div>
+        <div class="filter-drawer-body">
+            <div class="filter-group">
+                <div class="filter-group-head">
+                    <h4>Category</h4>
+                </div>
+                <label class="filter-option"><input type="checkbox" name="category-m" value="tops"> Tops <span
+                        class="count">(7)</span></label>
+                <label class="filter-option"><input type="checkbox" name="category-m" value="accessories"> Accessories
+                    <span class="count">(1)</span></label>
+                <label class="filter-option"><input type="checkbox" name="category-m" value="decor"> Home Decor <span
+                        class="count">(3)</span></label>
+            </div>
+            <div class="filter-group">
+                <div class="filter-group-head">
+                    <h4>Price</h4>
+                </div>
+                <label class="filter-option"><input type="checkbox" name="price-m" value="0-5000"> Under LKR
+                    5,000</label>
+                <label class="filter-option"><input type="checkbox" name="price-m" value="5000-8000"> LKR 5,000 &ndash;
+                    8,000</label>
+                <label class="filter-option"><input type="checkbox" name="price-m" value="8000-999999"> Over LKR
+                    8,000</label>
+            </div>
+            <div class="filter-group">
+                <div class="filter-group-head">
+                    <h4>Tag</h4>
+                </div>
+                <label class="filter-option"><input type="checkbox" name="tag-m" value="new"> New Arrivals</label>
+                <label class="filter-option"><input type="checkbox" name="tag-m" value="bestseller"> Bestsellers</label>
+            </div>
+        </div>
+        <div class="filter-drawer-foot">
+            <button class="btn btn-outline" id="clearAllMobile">Clear All</button>
+            <button class="btn btn-primary" id="applyMobile">Show Results</button>
+        </div>
+    </aside>
+
+    <!-- ================= Newsletter ================= -->
+    <section class="newsletter" id="newsletter">
+        <div class="container newsletter-inner">
+            <div class="newsletter-copy">
+                <h2>Stay in the loop</h2>
+                <p>New drops, restocks and the odd behind-the-scenes yarn ball. No spam, just stitches.</p>
+            </div>
+            <form class="newsletter-form" onsubmit="return false;">
+                <input type="email" placeholder="Enter your email" aria-label="Email address" required>
+                <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ================= Footer ================= -->
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <span class="brand-mark">Crochet by <span>Dracilla</span></span>
+                <p>Small-batch crochet clothing and hanging florals, hand-stitched skein by skein. Based in Maharagama,
+                    shipped island-wide.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8">
+                            <rect x="3" y="3" width="18" height="18" rx="5" />
+                            <circle cx="12" cy="12" r="4" />
+                            <circle cx="17.5" cy="6.5" r="1" />
+                        </svg></a>
+                    <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8">
+                            <path
+                                d="M16 3c.5 2.5 2 4 5 4.2V11c-1.9 0-3.5-.6-5-1.7V15a6 6 0 1 1-6-6c.3 0 .7 0 1 .1v3.2a2.8 2.8 0 1 0 2 2.7V3h3Z" />
+                        </svg></a>
+                    <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8">
+                            <path d="M20 12a8 8 0 1 1-3.6-6.7" />
+                            <path d="M20 12a8 8 0 0 1-11.9 7L4 20l1.1-4A8 8 0 0 1 20 12Z" />
+                        </svg></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h5>Shop</h5>
+                <ul>
+                    <li><a href="shop.html?category=tops">Tops</a></li>
+                    <li><a href="shop.html?category=accessories">Accessories</a></li>
+                    <li><a href="shop.html?category=decor">Home Decor</a></li>
+                    <li><a href="shop.html">All Products</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h5>Support</h5>
+                <ul>
+                    <li><a href="#">Shipping &amp; Care</a></li>
+                    <li><a href="#">Size Guide</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="index.html#newsletter">Custom Orders</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h5>Studio</h5>
+                <ul>
+                    <li><a href="#">About Dracilla</a></li>
+                    <li><a href="#">Our Process</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container footer-bottom">
+            <span>&copy; 2026 Crochet by Dracilla. All pieces handmade to order.</span>
+            <span>Designed with 🧶 in Maharagama</span>
+        </div>
+    </footer>
+
+    <script>
+        /* ============================================================
+           Product data — single source of truth for the shop grid
+           ============================================================ */
+        const PRODUCTS = [
+            { id: "cardigan-heart", name: "Sweetheart Granny Square Cardigan", price: 12500, category: "tops", image: "assets/products/heart-granny-cardigan.png", alt: "Red and white heart granny square crochet cardigan", badge: "bestseller" },
+            { id: "stripe-crop", name: "Sherbet Stripe Crop Top", price: 6800, category: "tops", image: "assets/products/striped-crop-top.png", alt: "Purple, pink and white striped crochet crop top", badge: "new" },
+            { id: "pom-beanie", name: "Blossom Pom Beanie", price: 4200, category: "accessories", image: "assets/products/beanie-pink-pompom.png", alt: "Cream crochet beanie with pink pom-pom and flowers", badge: "new" },
+            { id: "lavender-crop", name: "Lavender Bloom Crop Top", price: 5900, category: "tops", image: "assets/products/lavender-crop-top.png", alt: "Lavender purple crochet crop top with straps", badge: null },
+            { id: "violet-vest", name: "Dusty Violet Ribbed Vest", price: 7400, category: "tops", image: "assets/products/violet-ribbed-vest.png", alt: "Dusty violet ribbed crochet vest with satin ribbon ties", badge: null },
+            { id: "cocoa-cami", name: "Cocoa Button-Up Cami", price: 6200, category: "tops", image: "assets/products/cocoa-button-cami.png", alt: "Brown ribbed crochet cami with black buttons", badge: null },
+            { id: "vanilla-halter", name: "Vanilla Daisy Halter Top", price: 6500, category: "tops", image: "assets/products/vanilla-halter-top.png", alt: "White and tan crochet halter top with flower detail", badge: "bestseller" },
+            { id: "merlot-crop", name: "Merlot Square-Neck Crop", price: 6900, category: "tops", image: "assets/products/merlot-crop-top.png", alt: "Burgundy square neck crochet crop top", badge: null },
+            { id: "marigold-vine", name: "Marigold Vine Wall Hanging", price: 8900, category: "decor", image: "assets/products/marigold-vine-wallhanging.jpeg", alt: "Green crochet vine wall hanging with orange flowers", badge: "new" },
+            { id: "sweetpea-jar", name: "Sweet Pea Hanging Jar Planter", price: 5400, category: "decor", image: "assets/products/sweetpea-hanging-jar.jpeg", alt: "Hanging crochet jar planter with pink and purple flowers", badge: null },
+            { id: "rosebud-pot", name: "Rosebud Hanging Pot", price: 5900, category: "decor", image: "assets/products/rosebud-hanging-pot.jpeg", alt: "Hanging crochet flower pot in red and pink blooms", badge: null },
+        ];
+
+        const CATEGORY_LABEL = { tops: "Tops", accessories: "Accessories", decor: "Home Decor" };
+
+        function formatLKR(amount) {
+            return "LKR " + amount.toLocaleString("en-LK");
+        }
+
+        /* ============================================================
+           Filter state
+           ============================================================ */
+        const state = {
+            search: "",
+            categories: new Set(),
+            priceRanges: new Set(),
+            tags: new Set(),
+            sort: "featured",
+        };
+
+        // Preselect category from ?category= URL param (used by header/footer links)
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlCategory = urlParams.get("category");
+        if (urlCategory && CATEGORY_LABEL[urlCategory]) {
+            state.categories.add(urlCategory);
+        }
+
+        function syncCheckboxesFromState() {
+            document.querySelectorAll('input[name="category"], input[name="category-m"]').forEach(cb => {
+                cb.checked = state.categories.has(cb.value);
+            });
+            document.querySelectorAll('input[name="price"], input[name="price-m"]').forEach(cb => {
+                cb.checked = state.priceRanges.has(cb.value);
+            });
+            document.querySelectorAll('input[name="tag"], input[name="tag-m"]').forEach(cb => {
+                cb.checked = state.tags.has(cb.value);
+            });
+        }
+
+        function matchesPrice(price, ranges) {
+            if (ranges.size === 0) return true;
+            for (const range of ranges) {
+                const [min, max] = range.split("-").map(Number);
+                if (price >= min && price <= max) return true;
+            }
+            return false;
+        }
+
+        function getFiltered() {
+            let list = PRODUCTS.filter(p => {
+                const matchesSearch = state.search === "" || p.name.toLowerCase().includes(state.search.toLowerCase());
+                const matchesCategory = state.categories.size === 0 || state.categories.has(p.category);
+                const matchesTag = state.tags.size === 0 || (p.badge && state.tags.has(p.badge));
+                return matchesSearch && matchesCategory && matchesTag && matchesPrice(p.price, state.priceRanges);
+            });
+
+            if (state.sort === "price-asc") list = list.slice().sort((a, b) => a.price - b.price);
+            if (state.sort === "price-desc") list = list.slice().sort((a, b) => b.price - a.price);
+            if (state.sort === "name-asc") list = list.slice().sort((a, b) => a.name.localeCompare(b.name));
+
+            return list;
+        }
+
+        function badgeMarkup(badge) {
+            if (badge === "bestseller") return '<span class="product-badge">Bestseller</span>';
+            if (badge === "new") return '<span class="product-badge badge-new">New</span>';
+            return "";
+        }
+
+        function cardMarkup(p) {
+            return `
+      <article class="product-card" data-id="${p.id}" data-name="${p.name}" data-price="${p.price}" data-image="${p.image}">
+        <div class="product-media">
+          ${badgeMarkup(p.badge)}
+          <img src="${p.image}" alt="${p.alt}" loading="lazy">
+          <button class="product-quick" aria-label="Add ${p.name} to bag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="12" y1="9" x2="12" y2="15"/></svg>
+          </button>
+        </div>
+        <div class="product-info">
+          <span class="product-cat">${CATEGORY_LABEL[p.category]}</span>
+          <h3>${p.name}</h3>
+          <p class="product-price">${formatLKR(p.price)}</p>
+        </div>
+      </article>
+    `;
+        }
+
+        const PRICE_LABELS = {
+            "0-5000": "Under LKR 5,000",
+            "5000-8000": "LKR 5,000–8,000",
+            "8000-999999": "Over LKR 8,000",
+        };
+        const TAG_LABELS = { new: "New Arrivals", bestseller: "Bestsellers" };
+
+        function renderActiveChips() {
+            const chipsEl = document.getElementById("activeChips");
+            const chips = [];
+
+            state.categories.forEach(c => chips.push({ type: "category", value: c, label: CATEGORY_LABEL[c] }));
+            state.priceRanges.forEach(p => chips.push({ type: "price", value: p, label: PRICE_LABELS[p] }));
+            state.tags.forEach(t => chips.push({ type: "tag", value: t, label: TAG_LABELS[t] }));
+            if (state.search) chips.push({ type: "search", value: state.search, label: `"${state.search}"` });
+
+            chipsEl.innerHTML = chips.map(chip => `
+      <span class="active-filter-chip" data-chip-type="${chip.type}" data-chip-value="${chip.value}">
+        ${chip.label}
+        <button aria-label="Remove filter ${chip.label}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </span>
+    `).join("");
+
+            chipsEl.querySelectorAll("button").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const chipEl = btn.closest(".active-filter-chip");
+                    const type = chipEl.dataset.chipType;
+                    const value = chipEl.dataset.chipValue;
+                    if (type === "category") state.categories.delete(value);
+                    if (type === "price") state.priceRanges.delete(value);
+                    if (type === "tag") state.tags.delete(value);
+                    if (type === "search") { state.search = ""; searchInput.value = ""; searchClear.classList.remove("is-visible"); }
+                    syncCheckboxesFromState();
+                    render();
+                });
+            });
+        }
+
+        function updateFilterDot() {
+            const active = state.categories.size + state.priceRanges.size + state.tags.size > 0;
+            document.getElementById("filterActiveDot").classList.toggle("is-visible", active);
+        }
+
+        function render() {
+            const filtered = getFiltered();
+            const grid = document.getElementById("productGrid");
+            const empty = document.getElementById("emptyState");
+            const countEl = document.getElementById("resultCount");
+
+            if (filtered.length === 0) {
+                grid.innerHTML = "";
+                grid.style.display = "none";
+                empty.classList.add("is-visible");
+            } else {
+                grid.style.display = "grid";
+                empty.classList.remove("is-visible");
+                grid.innerHTML = filtered.map(cardMarkup).join("");
+                wireQuickAddButtons();
+            }
+
+            countEl.innerHTML = `Showing <strong>${filtered.length}</strong> of <strong>${PRODUCTS.length}</strong> pieces`;
+            renderActiveChips();
+            updateFilterDot();
+        }
+
+        /* ============================================================
+           Wire up search
+           ============================================================ */
+        const searchInput = document.getElementById("searchInput");
+        const searchClear = document.getElementById("searchClear");
+        let searchTimer;
+        searchInput.addEventListener("input", () => {
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(() => {
+                state.search = searchInput.value.trim();
+                searchClear.classList.toggle("is-visible", state.search.length > 0);
+                render();
+            }, 150);
+        });
+        searchClear.addEventListener("click", () => {
+            searchInput.value = "";
+            state.search = "";
+            searchClear.classList.remove("is-visible");
+            render();
+            searchInput.focus();
+        });
+        document.getElementById("headerSearchBtn").addEventListener("click", () => {
+            searchInput.focus();
+            searchInput.scrollIntoView({ behavior: "smooth", block: "center" });
+        });
+
+        /* ============================================================
+           Wire up sort
+           ============================================================ */
+        document.getElementById("sortSelect").addEventListener("change", (e) => {
+            state.sort = e.target.value;
+            render();
+        });
+
+        /* ============================================================
+           Wire up sidebar + mobile-drawer checkboxes
+           ============================================================ */
+        function wireCheckboxGroup(name, targetSet) {
+            document.querySelectorAll(`input[name="${name}"]`).forEach(cb => {
+                cb.addEventListener("change", () => {
+                    if (cb.checked) targetSet.add(cb.value); else targetSet.delete(cb.value);
+                    syncCheckboxesFromState();
+                    render();
+                });
+            });
+        }
+        wireCheckboxGroup("category", state.categories);
+        wireCheckboxGroup("category-m", state.categories);
+        wireCheckboxGroup("price", state.priceRanges);
+        wireCheckboxGroup("price-m", state.priceRanges);
+        wireCheckboxGroup("tag", state.tags);
+        wireCheckboxGroup("tag-m", state.tags);
+
+        document.querySelectorAll(".filter-clear-one").forEach(btn => {
+            btn.addEventListener("click", () => {
+                const group = btn.dataset.clear;
+                if (group === "category") state.categories.clear();
+                if (group === "price") state.priceRanges.clear();
+                if (group === "tag") state.tags.clear();
+                syncCheckboxesFromState();
+                render();
+            });
+        });
+
+        function clearAllFilters() {
+            state.categories.clear();
+            state.priceRanges.clear();
+            state.tags.clear();
+            state.search = "";
+            searchInput.value = "";
+            searchClear.classList.remove("is-visible");
+            syncCheckboxesFromState();
+            render();
+        }
+        document.getElementById("clearAllDesktop").addEventListener("click", clearAllFilters);
+        document.getElementById("clearAllMobile").addEventListener("click", clearAllFilters);
+        document.getElementById("emptyClearBtn").addEventListener("click", clearAllFilters);
+
+        /* ============================================================
+           Mobile filter drawer open/close
+           ============================================================ */
+        const filterDrawer = document.getElementById("filterDrawer");
+        const filterOverlay = document.getElementById("filterOverlay");
+        function openFilterDrawer() {
+            filterDrawer.classList.add("is-open");
+            filterOverlay.classList.add("is-open");
+            document.body.style.overflow = "hidden";
+        }
+        function closeFilterDrawer() {
+            filterDrawer.classList.remove("is-open");
+            filterOverlay.classList.remove("is-open");
+            document.body.style.overflow = "";
+        }
+        document.getElementById("filterToggle").addEventListener("click", openFilterDrawer);
+        document.getElementById("filterDrawerClose").addEventListener("click", closeFilterDrawer);
+        filterOverlay.addEventListener("click", closeFilterDrawer);
+        document.getElementById("applyMobile").addEventListener("click", closeFilterDrawer);
+
+        /* ============================================================
+           Initial render
+           ============================================================ */
+        syncCheckboxesFromState();
+        render();
+
+        /* ============================================================
+           Mobile nav drawer (shared pattern with index.html)
+           ============================================================ */
+        const navToggle = document.getElementById('navToggle');
+        const navClose = document.getElementById('navClose');
+        const mobileNav = document.getElementById('mobileNav');
+        const navOverlay = document.getElementById('navOverlay');
+
+        function openNav() {
+            mobileNav.classList.add('is-open');
+            navOverlay.classList.add('is-open');
+        }
+        function closeNav() {
+            mobileNav.classList.remove('is-open');
+            navOverlay.classList.remove('is-open');
+        }
+        navToggle && navToggle.addEventListener('click', openNav);
+        navClose && navClose.addEventListener('click', closeNav);
+        navOverlay && navOverlay.addEventListener('click', closeNav);
+        mobileNav && mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+
+        /* ============================================================
+           Cart drawer (opens from the left) — shared pattern with index.html,
+           persisted to localStorage so it carries over between pages
+           ============================================================ */
+        const cartToggle = document.getElementById('cartToggle');
+        const cartClose = document.getElementById('cartClose');
+        const cartOverlay = document.getElementById('cartOverlay');
+        const cartDrawer = document.getElementById('cartDrawer');
+        const cartItemsEl = document.getElementById('cartItems');
+        const cartEmptyEl = document.getElementById('cartEmpty');
+        const cartFootEl = document.getElementById('cartFoot');
+        const cartSubtotalEl = document.getElementById('cartSubtotal');
+        const cartCountEl = document.getElementById('cartCount');
+        const cartHeadCountEl = document.getElementById('cartHeadCount');
+        const cartEmptyBtn = document.getElementById('cartEmptyBtn');
+
+        let cart = JSON.parse(localStorage.getItem('cbd_cart') || '[]');
+
+        function saveCart() {
+            localStorage.setItem('cbd_cart', JSON.stringify(cart));
+        }
+
+        function openCart() {
+            cartDrawer.classList.add('is-open');
+            cartOverlay.classList.add('is-open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeCart() {
+            cartDrawer.classList.remove('is-open');
+            cartOverlay.classList.remove('is-open');
+            document.body.style.overflow = '';
+        }
+
+        function addToCart(product) {
+            const existing = cart.find(item => item.id === product.id);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+            saveCart();
+            renderCart();
+            openCart();
+        }
+
+        function changeQty(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (!item) return;
+            item.qty += delta;
+            if (item.qty <= 0) {
+                cart = cart.filter(i => i.id !== id);
+            }
+            saveCart();
+            renderCart();
+        }
+
+        function removeItem(id) {
+            cart = cart.filter(i => i.id !== id);
+            saveCart();
+            renderCart();
+        }
+
+        function renderCart() {
+            const totalQty = cart.reduce((sum, i) => sum + i.qty, 0);
+            const subtotal = cart.reduce((sum, i) => sum + i.qty * i.price, 0);
+
+            cartCountEl.textContent = totalQty;
+            cartHeadCountEl.textContent = '(' + totalQty + ')';
+            cartToggle.setAttribute('aria-label', 'Open shopping bag, ' + totalQty + ' items');
+            cartSubtotalEl.textContent = formatLKR(subtotal);
+
+            if (cart.length === 0) {
+                cartEmptyEl.style.display = 'flex';
+                cartItemsEl.style.display = 'none';
+                cartFootEl.style.display = 'none';
+                cartItemsEl.innerHTML = '';
+                return;
+            }
+
+            cartEmptyEl.style.display = 'none';
+            cartItemsEl.style.display = 'flex';
+            cartFootEl.style.display = 'block';
+
+            cartItemsEl.innerHTML = cart.map(item => `
+      <li class="cart-item" data-id="${item.id}">
+        <img src="${item.image}" alt="${item.name}">
+        <div class="cart-item-info">
+          <h4>${item.name}</h4>
+          <p class="cart-item-price">${formatLKR(item.price)}</p>
+          <div class="cart-qty">
+            <button class="qty-btn" data-action="dec" aria-label="Decrease quantity of ${item.name}">&minus;</button>
+            <span>${item.qty}</span>
+            <button class="qty-btn" data-action="inc" aria-label="Increase quantity of ${item.name}">&plus;</button>
+          </div>
+        </div>
+        <button class="cart-item-remove" data-action="remove" aria-label="Remove ${item.name} from bag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </li>
+    `).join('');
+        }
+
+        cartToggle && cartToggle.addEventListener('click', openCart);
+        cartClose && cartClose.addEventListener('click', closeCart);
+        cartOverlay && cartOverlay.addEventListener('click', closeCart);
+        cartEmptyBtn && cartEmptyBtn.addEventListener('click', closeCart);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') { closeCart(); closeNav(); closeFilterDrawer(); }
+        });
+
+        function wireQuickAddButtons() {
+            document.querySelectorAll('.product-quick').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const card = btn.closest('.product-card');
+                    if (!card) return;
+                    addToCart({
+                        id: card.dataset.id,
+                        name: card.dataset.name,
+                        price: parseInt(card.dataset.price, 10),
+                        image: card.dataset.image
+                    });
+                });
+            });
+        }
+
+        cartItemsEl.addEventListener('click', (e) => {
+            const btn = e.target.closest('button');
+            if (!btn) return;
+            const li = btn.closest('.cart-item');
+            const id = li && li.dataset.id;
+            if (!id) return;
+            const action = btn.dataset.action;
+            if (action === 'inc') changeQty(id, 1);
+            if (action === 'dec') changeQty(id, -1);
+            if (action === 'remove') removeItem(id);
+        });
+
+        renderCart();
+    </script>
+
+</body>
+
+</html>
