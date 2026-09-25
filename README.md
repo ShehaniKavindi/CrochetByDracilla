@@ -42,6 +42,7 @@ Crochet by Dracilla is a small storefront for a hand-stitched crochet brand — 
 - ✂️ **Custom order requests** (`custom-orders.html`) — a form (name, description, optional reference photos) that opens straight into a pre-filled WhatsApp message; on devices that support the Web Share API it shares photos directly into WhatsApp, otherwise it falls back to a text-only WhatsApp link and the person attaches photos themselves
 - 🗂️ **Product admin tool** (`admin.html`) — no database behind it; it's a client-side form that loads the current `products.json`, lets you add/edit/remove products, and outputs the updated JSON to copy or download. Publishing a change still means manually replacing `products.json` (and any new images) and pushing to git — see [Managing products](#managing-products) below
 - 🔒 **Passcode-gated admin** — `middleware.js` runs server-side on Vercel, checks an `admin_auth` cookie against the `ADMIN_PASSCODE` environment variable before `admin.html` is ever sent to the browser, and fails **closed** (blocks everyone) if the env var isn't set; `admin-login.html` just sets the cookie and lets the middleware do the real check
+- ☎️ **WhatsApp number kept out of source** — `index.html`, `shop.html`, and `custom-orders.html` fetch the studio's WhatsApp number from `api/config.js` at runtime instead of hardcoding it, so it never appears in the committed source; `api/config.js` reads it from the `WHATSAPP_NUMBER` environment variable. Note this only keeps it out of the repo, not off the live site — a `wa.me` link is inherently visible to anyone using the checkout/custom-order flow
 - 📱 **Fully responsive** — tested at desktop (1440px), tablet (820px), and mobile (390px) breakpoints, with slide-in nav and filter drawers
 - ♿ **Accessible by default** — semantic HTML, visible focus states, aria-labels on icon buttons, `prefers-reduced-motion` respected
 - 🧵 **Signature details** — a hand-drawn scallop-edge SVG divider and stitched hover states that nod to the craft itself
@@ -56,6 +57,7 @@ Crochet by Dracilla is a small storefront for a hand-stitched crochet brand — 
 | Behavior   | Vanilla JavaScript (no framework, no bundler) |
 | Data       | `products.json`, fetched at runtime (with an inline `PRODUCTS` array fallback in `shop.html` for local/offline viewing) |
 | Auth       | Vercel Edge Middleware (`middleware.js`) checking a passcode cookie — no user accounts, single shared studio passcode |
+| Config     | `api/config.js` (Vercel Edge Function) serves the WhatsApp number from an environment variable, fetched by the client at runtime |
 | Ordering   | WhatsApp deep links (`wa.me`) — no payment gateway or order database |
 | Fonts      | [Fraunces](https://fonts.google.com/specimen/Fraunces), [Nunito Sans](https://fonts.google.com/specimen/Nunito+Sans), [Caveat](https://fonts.google.com/specimen/Caveat) via Google Fonts |
 | Hosting    | Vercel |
@@ -70,6 +72,8 @@ CrochetByDracilla/
 ├── admin.html                 # Product admin tool (passcode-gated)
 ├── admin-login.html           # Passcode entry for admin.html
 ├── middleware.js               # Vercel Edge Middleware — gates /admin.html
+├── api/
+│   └── config.js                # Vercel Edge Function — serves WHATSAPP_NUMBER as JSON
 ├── products.json                # Product catalog, edited via admin.html
 ├── style.css                     # Shared: brand palette (:root), fonts, header/nav,
 │                                  #   buttons, product-card, cart drawer, footer
@@ -88,27 +92,6 @@ CrochetByDracilla/
 
 `shop.html` and `custom-orders.html` link `style.css` first, then their own page-specific stylesheet — those stylesheets have no color or font values of their own, they only read the `--variables` defined in `style.css`'s `:root`. Keep that link order if you ever split styles further.
 
-## Getting started
-
-No build tools or package installs required.
-
-```bash
-# Clone the repo
-git clone <your-repo-url>
-cd CrochetByDracilla
-
-# Option 1 — just open it
-open index.html          # macOS
-start index.html         # Windows
-
-# Option 2 — serve it locally (recommended, avoids file:// quirks and
-# lets products.json and the admin tool's fetch() calls actually work)
-python3 -m http.server 8080
-# then visit http://localhost:8080
-```
-
-To test the admin login locally, set `ADMIN_PASSCODE` in your environment (or in a Vercel dev setup) before hitting `/admin.html` — without it, middleware blocks access entirely rather than letting it through.
-
 ## Managing products
 
 `products.json` is the single source of truth for the catalog, fetched by both `index.html` and `shop.html` at runtime.
@@ -125,7 +108,7 @@ There's no database and no write access from the browser — `admin.html` is a J
 - **Colors** — edit the six variables at the top of `style.css` (`:root { ... }`) to reskin every page at once (`shop.css` and `custom-orders.css` inherit them automatically)
 - **Products** — edit via `admin.html` (see above), or directly in `products.json`
 - **Prices** — shown in LKR by default (`formatLKR()` in each page's inline `<script>`); adjust the currency prefix there
-- **WhatsApp number** — set as `WHATSAPP_NUMBER` in the inline `<script>` of `index.html`, `shop.html`, and `custom-orders.html`. In this public copy it's a placeholder (`REPLACE_WITH_YOUR_WHATSAPP_NUMBER`) — checkout and custom orders won't open WhatsApp correctly until you replace it in all three files with a real number in `country code + number` format, no `+` or leading `0` (e.g. `947XXXXXXXX`)
+- **WhatsApp number** — set the `WHATSAPP_NUMBER` environment variable in your Vercel project settings (format: `country code + number`, no `+` or leading `0`, e.g. `947XXXXXXXX`); `api/config.js` serves it, and `index.html`, `shop.html`, and `custom-orders.html` fetch it at page load. There's no number hardcoded in this repo — if the env var isn't set, or `api/config.js` isn't deployed (e.g. running purely `python3 -m http.server`), checkout and custom orders will show an "unavailable" message instead of opening WhatsApp
 - **Admin passcode** — set/change the `ADMIN_PASSCODE` environment variable in your Vercel project settings; there's no passcode stored in the code itself
 - **Filter categories/price bands** — edit the checkbox lists in `shop.html`'s sidebar and mobile drawer (`name="category"`, `name="price"`, `name="tag"`, plus their `-m` mobile twins) — values must match the `category` field and price bands used in `products.json`
 - **Copy** — hero text, feature strip, quote strip, and newsletter copy are all plain text in `index.html`
@@ -136,21 +119,26 @@ Built with modern, broadly-supported CSS (Grid, Flexbox, `aspect-ratio`, custom 
 
 ## Roadmap / Future Plans
 
-The storefront, cart, custom-order flow, and a basic admin/product-management pipeline are in place. No payment gateway or order database exists yet — checkout and custom orders are both handed off to WhatsApp for a human to confirm. Planned next steps:
+The storefront, cart, custom-order flow, and a basic admin/product-management pipeline are in place. Checkout and custom orders are both handed off to WhatsApp for a human to confirm — that's intentional, not a placeholder.
 
-- [ ] **True checkout flow** — an actual payment step (e.g. Stripe or PayHere for LKR) instead of relying entirely on WhatsApp
-- [ ] **Product detail pages** — a dedicated page per item (larger photos, size/colour options, full description) instead of quick-add only
-- [ ] **Inventory & stock status** — mark made-to-order pieces as sold out / limited stock, ideally from a small CMS or spreadsheet-backed source instead of manually edited `products.json`
-- [ ] **A real admin backend** — replace the copy/download/commit workflow in `admin.html` with something that writes to `products.json` (or a database) directly
-- [ ] **Wishlist / save for later** — separate from the cart, for pieces someone's still deciding on
-- [ ] **Order tracking page** — for made-to-order pieces with a multi-day turnaround
+**By design — not planned:**
+
+- **Payment gateway / in-site checkout** — every order goes through WhatsApp for a human to confirm; no Stripe/PayHere integration is planned
+- **A database or order backend** — the site stays static; `products.json` stays hand-edited via `admin.html`, no CMS or database behind it
+- **Wishlist / save for later** — not planned
+- **Order tracking page** — would need a backend to track status against, which this site won't have
+- **Server-backed cart** — the cart stays `localStorage`-only (per-browser, not per-account)
+
+**Still planned:**
+
 - [ ] **Additional pages** — About/Dracilla's story, Shipping & Care, Size Guide, and Contact currently link to `#` placeholders in the footer
+- [ ] **Social links** — Instagram/TikTok/WhatsApp icons in the footer currently link to `#` placeholders
+- [ ] **Product detail pages** — a dedicated page per item (larger photos, size/colour options, full description) instead of quick-add only
+- [ ] **Inventory & stock status** — mark made-to-order pieces as sold out / limited stock, tracked as an extra field in the hand-edited `products.json` (no CMS or database needed)
 - [ ] **Newsletter integration** — connect the signup form to an actual email provider (Mailchimp, Buttondown, etc.) instead of a no-op submit
 - [ ] **Image optimization** — serve responsive `srcset` images and next-gen formats (WebP/AVIF); several product photos are currently uncompressed PNGs (~1.5–2MB each), which is worth revisiting for mobile load times
 - [ ] **Analytics** — lightweight, privacy-respecting page/conversion tracking once the store is live
 - [ ] **Multi-currency support** — if selling beyond Sri Lanka, add currency conversion alongside the current LKR-only pricing
-- [ ] **Server-backed cart** — the cart is `localStorage`-only today (per-browser, not per-account); move it server-side once accounts/checkout exist so it survives a cleared cache or a new device
-- [ ] **Social links** — Instagram/TikTok/WhatsApp icons in the footer currently link to `#` placeholders
 
 Contributions or suggestions toward any of the above are welcome — open an issue or a PR.
 
