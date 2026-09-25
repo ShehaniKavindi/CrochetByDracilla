@@ -133,9 +133,17 @@
                 <span>Subtotal</span>
                 <span id="cartSubtotal">LKR 0</span>
             </div>
-            <p class="cart-note">Shipping and any custom colour notes are confirmed over WhatsApp before we start
+                <p class="cart-note">Shipping and any custom colour notes are confirmed over WhatsApp before we start
                 stitching.</p>
-            <a href="index.html#newsletter" class="btn btn-primary cart-checkout" id="cartCheckout">Checkout</a>
+            <div class="cart-field">
+                <label for="cartCustomerName">Your name</label>
+                <input type="text" id="cartCustomerName" placeholder="e.g. Amaya Perera">
+            </div>
+            <div class="cart-field">
+                <label for="cartCustomNotes">Customization / size / colour notes (optional)</label>
+                <textarea id="cartCustomNotes" placeholder="Leave blank if no customization needed"></textarea>
+            </div>
+            <button type="button" class="btn btn-primary cart-checkout" id="cartCheckout">Checkout via WhatsApp</button>
         </div>
     </aside>
 
@@ -724,6 +732,13 @@
         const cartCountEl = document.getElementById('cartCount');
         const cartHeadCountEl = document.getElementById('cartHeadCount');
         const cartEmptyBtn = document.getElementById('cartEmptyBtn');
+  const cartCheckout = document.getElementById('cartCheckout');
+  const cartCustomerName = document.getElementById('cartCustomerName');
+  const cartCustomNotes = document.getElementById('cartCustomNotes');
+
+  // WhatsApp number to receive orders, in international format with no + or spaces
+  // e.g. Sri Lanka mobile 077 123 4567 -> '94771234567'
+  const WHATSAPP_NUMBER = '94XXXXXXXXX';
 
         let cart = JSON.parse(localStorage.getItem('cbd_cart') || '[]');
 
@@ -815,6 +830,48 @@
         cartClose && cartClose.addEventListener('click', closeCart);
         cartOverlay && cartOverlay.addEventListener('click', closeCart);
         cartEmptyBtn && cartEmptyBtn.addEventListener('click', closeCart);
+  function buildOrderMessage() {
+    const name = (cartCustomerName.value || '').trim();
+    const notes = (cartCustomNotes.value || '').trim();
+    const subtotal = cart.reduce((sum, i) => sum + i.qty * i.price, 0);
+
+    let lines = [];
+    lines.push('Hi Crochet by Dracilla! I\'d like to order:');
+    lines.push('');
+    cart.forEach((item, idx) => {
+      lines.push(
+        (idx + 1) + '. ' + item.name +
+        ' — Qty: ' + item.qty +
+        ' — ' + formatLKR(item.price) + ' each' +
+        ' — Subtotal: ' + formatLKR(item.qty * item.price)
+      );
+    });
+    lines.push('');
+    lines.push('Order total: ' + formatLKR(subtotal));
+    lines.push('');
+    lines.push('Customization needed: ' + (notes ? 'Yes' : 'No'));
+    if (notes) {
+      lines.push('Details: ' + notes);
+    }
+    if (name) {
+      lines.push('');
+      lines.push('Name: ' + name);
+    }
+    lines.push('');
+    lines.push('(Delivery address & payment to be confirmed here on WhatsApp.)');
+
+    return lines.join('\n');
+  }
+
+  function checkoutViaWhatsApp() {
+    if (cart.length === 0) return;
+    const message = buildOrderMessage();
+    const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
+    window.open(url, '_blank');
+  }
+
+  cartCheckout && cartCheckout.addEventListener('click', checkoutViaWhatsApp);
+
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') { closeCart(); closeNav(); closeFilterDrawer(); }
