@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Crochet by Dracilla — Handmade Crochet Clothing &amp; Decor</title>
+<title>Crochet by Dracilla | Handmade Crochet Clothing &amp; Decor</title>
 <meta name="description" content="Slow-made crochet tops, accessories and hanging florals, stitched by hand one skein at a time.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,12 +37,12 @@
         <li><a href="shop.html?category=tops">Tops</a></li>
         <li><a href="shop.html?category=accessories">Accessories</a></li>
         <li><a href="shop.html?category=decor">Home Decor</a></li>
-        <li><a href="index.html#newsletter">Custom Orders</a></li>
+        <li><a href="custom-orders.html">Custom Orders</a></li>
       </ul>
     </nav>
 
     <div class="header-actions">
-      <button class="icon-btn" aria-label="Search products">
+      <button class="icon-btn" aria-label="Search products" id="headerSearchBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       </button>
       <button class="icon-btn" aria-label="Account">
@@ -74,7 +74,7 @@
     <li><a href="shop.html?category=tops">Tops</a></li>
     <li><a href="shop.html?category=accessories">Accessories</a></li>
     <li><a href="shop.html?category=decor">Home Decor</a></li>
-    <li><a href="index.html#newsletter">Custom Orders</a></li>
+    <li><a href="custom-orders.html">Custom Orders</a></li>
   </ul>
 </nav>
 
@@ -128,7 +128,7 @@
         <p>Cropped tops, cosy accessories and hanging florals — every piece looped by hand in small batches from my little corner in Maharagama.</p>
         <div class="hero-cta-row">
           <a href="shop.html" class="btn btn-primary">Shop New Arrivals</a>
-          <a href="index.html#newsletter" class="btn btn-ghost">Request a Custom Piece</a>
+          <a href="custom-orders.html" class="btn btn-ghost">Request a Custom Piece</a>
         </div>
       </div>
     </div>
@@ -492,7 +492,7 @@
         <li><a href="#">Shipping &amp; Care</a></li>
         <li><a href="#">Size Guide</a></li>
         <li><a href="#">Returns</a></li>
-        <li><a href="index.html#newsletter">Custom Orders</a></li>
+        <li><a href="custom-orders.html">Custom Orders</a></li>
       </ul>
     </div>
 
@@ -531,6 +531,11 @@
   navClose && navClose.addEventListener('click', closeNav);
   navOverlay && navOverlay.addEventListener('click', closeNav);
   mobileNav && mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+
+  // Search icon opens the shop page
+  document.getElementById('headerSearchBtn').addEventListener('click', () => {
+    window.location.href = 'shop.html';
+  });
 
   // Product category filter (on this page's "New Arrivals" preview grid)
   const chips = document.querySelectorAll('.filter-chip');

@@ -978,6 +978,34 @@ p { margin: 0; }
   width: 100%;
   margin-top: 14px;
 }
+.cart-field {
+  margin-top: 12px;
+}
+.cart-field label {
+  display: block;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--ink-70);
+  margin-bottom: 4px;
+}
+.cart-field input,
+.cart-field textarea {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+  resize: vertical;
+}
+.cart-field textarea { min-height: 56px; }
+.cart-field input:focus,
+.cart-field textarea:focus {
+  outline: 2px solid var(--sage-leaf);
+  outline-offset: 1px;
+}
 
 @media (max-width: 420px) {
   .cart-drawer { width: 100vw; }

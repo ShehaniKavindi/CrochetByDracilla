@@ -1,0 +1,270 @@
+/* ============================================================
+   custom-orders.html-only styles.
+   Reads the --variables defined in style.css's :root. Keep the
+   <link> order (style.css first, then custom-orders.css).
+   ============================================================ */
+
+/* ---------- Page hero (photo wash) ---------- */
+.page-hero {
+  position: relative;
+  padding: 60px 0 50px;
+  background:
+    linear-gradient(180deg, rgba(255, 247, 230, 0.86) 0%, rgba(255, 252, 245, 0.95) 100%),
+    url('assets/custom-order-hero.jpg') center 38% / cover no-repeat;
+}
+.page-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: var(--ink-45);
+  margin-bottom: 14px;
+}
+.page-breadcrumb a { color: var(--rosewood); }
+.page-breadcrumb a:hover { text-decoration: underline; }
+.page-breadcrumb svg { width: 12px; height: 12px; color: var(--ink-45); }
+
+.page-hero h1 {
+  font-size: clamp(1.9rem, 3vw, 2.6rem);
+  margin-bottom: 10px;
+}
+.page-hero p {
+  color: var(--ink-70);
+  max-width: 56ch;
+  line-height: 1.6;
+}
+
+/* Reuses the site's scallop-divider component (see style.css);
+   these two just set which colour it fades into. */
+.scallop-divider--sage svg path { fill: var(--sage-leaf); }
+.scallop-divider--cream svg path { fill: var(--vanilla-cream); }
+
+/* ---------- Dracilla's note (reuses .quote-strip look) ---------- */
+.quote-strip.custom-note .quote-text { font-size: clamp(1.15rem, 2.2vw, 1.5rem); }
+
+/* ---------- Custom order section ---------- */
+.custom-order-section {
+  position: relative;
+  padding: 56px 0 76px;
+  background-image:
+    radial-gradient(var(--blush-petal) 1.4px, transparent 1.4px),
+    radial-gradient(var(--blush-petal) 1.4px, transparent 1.4px);
+  background-size: 34px 34px;
+  background-position: 0 0, 17px 17px;
+  background-color: var(--vanilla-cream);
+}
+.custom-order-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 44px;
+  align-items: start;
+}
+@media (max-width: 860px) {
+  .custom-order-wrap { grid-template-columns: 1fr; }
+}
+
+.custom-order-info .eyebrow-script { margin-bottom: 4px; display: inline-block; }
+.custom-order-info h2 {
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+}
+.custom-order-info p {
+  color: var(--ink-70);
+  line-height: 1.65;
+  margin-bottom: 14px;
+}
+.custom-order-info ul {
+  list-style: none;
+  padding: 0;
+  margin: 18px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.custom-order-info li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 0.92rem;
+  color: var(--ink);
+}
+.custom-order-info li svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: var(--sage-leaf);
+}
+
+/* Little scrapbook-style photo cluster — a few customer favourites,
+   tilted at different angles like polaroids pinned to a board */
+.inspo-gallery {
+  margin: 26px 0 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 10px;
+  max-width: 340px;
+}
+.inspo-item {
+  width: 92px;
+  height: 110px;
+  object-fit: cover;
+  background: #fff;
+  padding: 6px 6px 10px;
+  border-radius: 3px;
+  box-shadow: 0 10px 20px rgba(45, 58, 71, 0.16);
+  box-sizing: content-box;
+}
+.inspo-rotate-1 { transform: rotate(-6deg); }
+.inspo-rotate-2 { transform: rotate(4deg); margin-top: 14px; }
+.inspo-rotate-3 { transform: rotate(-3deg); }
+.inspo-rotate-4 { transform: rotate(5deg); margin-top: 10px; }
+.inspo-rotate-5 { transform: rotate(-4deg); }
+.inspo-gallery figcaption {
+  width: 100%;
+  font-family: var(--font-script);
+  font-size: 1rem;
+  color: var(--ink-70);
+  margin-top: 8px;
+}
+@media (max-width: 480px) {
+  .inspo-item { width: 78px; height: 94px; }
+}
+
+/* ---------- Order form card ---------- */
+.order-card {
+  position: relative;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--rosewood);
+  border-radius: 16px;
+  padding: 30px 28px;
+  box-shadow: 0 16px 34px rgba(45, 58, 71, 0.09);
+}
+.order-card h2 {
+  font-size: 1.3rem;
+  margin-bottom: 4px;
+}
+.order-card .order-card-sub {
+  font-size: 0.85rem;
+  color: var(--ink-70);
+  margin-bottom: 20px;
+}
+
+.order-field { margin-bottom: 18px; }
+.order-field label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--midnight-lagoon);
+  margin-bottom: 6px;
+}
+.order-field input[type="text"],
+.order-field textarea {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 11px 13px;
+  resize: vertical;
+}
+.order-field textarea { min-height: 130px; }
+.order-field input:focus,
+.order-field textarea:focus {
+  outline: 2px solid var(--sage-leaf);
+  outline-offset: 1px;
+}
+.order-field-error {
+  display: none;
+  color: var(--rosewood-dark);
+  font-size: 0.78rem;
+  margin-top: 6px;
+}
+.order-field-hint {
+  color: var(--ink-45);
+  font-size: 0.76rem;
+  margin-top: 8px;
+  line-height: 1.5;
+}
+.order-field.has-error input,
+.order-field.has-error textarea {
+  border-color: var(--rosewood-dark);
+}
+.order-field.has-error .order-field-error { display: block; }
+
+/* Photo attach */
+.photo-drop-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1.5px dashed var(--misty-sky);
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--midnight-lagoon);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.photo-drop-btn:hover { border-color: var(--rosewood); background: var(--blush-petal); }
+.photo-drop-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+.photo-preview-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+.photo-preview-item {
+  position: relative;
+  width: 68px;
+  height: 68px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+.photo-preview-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.photo-remove {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(45, 58, 71, 0.75);
+  color: #fff;
+  font-size: 0.75rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.photo-remove:hover { background: var(--rosewood-dark); }
+
+.order-submit {
+  width: 100%;
+  justify-content: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.order-submit svg { width: 17px; height: 17px; }
+
+.order-card-note {
+  font-size: 0.76rem;
+  color: var(--ink-45);
+  margin-top: 12px;
+  line-height: 1.5;
+}
