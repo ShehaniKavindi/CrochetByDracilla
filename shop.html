@@ -133,7 +133,7 @@
                 <span>Subtotal</span>
                 <span id="cartSubtotal">LKR 0</span>
             </div>
-                <p class="cart-note">Shipping and any custom color notes are confirmed over WhatsApp before we start
+            <p class="cart-note">Shipping and any custom color notes are confirmed over WhatsApp before we start
                 stitching.</p>
             <div class="cart-field">
                 <label for="cartCustomerName">Your name</label>
@@ -423,13 +423,7 @@
     </footer>
 
     <script>
-        /* ============================================================
-           Product data — single source of truth for the shop grid.
-           This array is a fallback (so the page still works opened
-           directly from disk). On a real deploy it's replaced by the
-           contents of products.json, which the admin page (admin.html)
-           helps you regenerate whenever you add a product.
-           ============================================================ */
+
         let PRODUCTS = [
             { id: "cardigan-heart", name: "Sweetheart Granny Square Cardigan", price: 12500, category: "tops", image: "assets/products/heart-granny-cardigan.png", alt: "Red and white heart granny square crochet cardigan", badge: "bestseller" },
             { id: "stripe-crop", name: "Sherbet Stripe Crop Top", price: 6800, category: "tops", image: "assets/products/striped-crop-top.png", alt: "Purple, pink and white striped crochet crop top", badge: "new" },
@@ -753,13 +747,13 @@
         const cartCountEl = document.getElementById('cartCount');
         const cartHeadCountEl = document.getElementById('cartHeadCount');
         const cartEmptyBtn = document.getElementById('cartEmptyBtn');
-  const cartCheckout = document.getElementById('cartCheckout');
-  const cartCustomerName = document.getElementById('cartCustomerName');
-  const cartCustomNotes = document.getElementById('cartCustomNotes');
+        const cartCheckout = document.getElementById('cartCheckout');
+        const cartCustomerName = document.getElementById('cartCustomerName');
+        const cartCustomNotes = document.getElementById('cartCustomNotes');
 
-  // WhatsApp number to receive orders, in international format with no + or spaces
-  // e.g. Sri Lanka mobile 077 123 4567 -> '94771234567'
-  const WHATSAPP_NUMBER = '94XXXXXXXXX';
+        // WhatsApp number to receive orders, in international format with no + or spaces
+        // e.g. Sri Lanka mobile 077 123 4567 -> '94771234567'
+        const WHATSAPP_NUMBER = '94XXXXXXXXX';
 
         let cart = JSON.parse(localStorage.getItem('cbd_cart') || '[]');
 
@@ -851,47 +845,47 @@
         cartClose && cartClose.addEventListener('click', closeCart);
         cartOverlay && cartOverlay.addEventListener('click', closeCart);
         cartEmptyBtn && cartEmptyBtn.addEventListener('click', closeCart);
-  function buildOrderMessage() {
-    const name = (cartCustomerName.value || '').trim();
-    const notes = (cartCustomNotes.value || '').trim();
-    const subtotal = cart.reduce((sum, i) => sum + i.qty * i.price, 0);
+        function buildOrderMessage() {
+            const name = (cartCustomerName.value || '').trim();
+            const notes = (cartCustomNotes.value || '').trim();
+            const subtotal = cart.reduce((sum, i) => sum + i.qty * i.price, 0);
 
-    let lines = [];
-    lines.push('Hi Crochet by Dracilla! I\'d like to order:');
-    lines.push('');
-    cart.forEach((item, idx) => {
-      lines.push(
-        (idx + 1) + '. ' + item.name +
-        ' — Qty: ' + item.qty +
-        ' — ' + formatLKR(item.price) + ' each' +
-        ' — Subtotal: ' + formatLKR(item.qty * item.price)
-      );
-    });
-    lines.push('');
-    lines.push('Order total: ' + formatLKR(subtotal));
-    lines.push('');
-    lines.push('Customization needed: ' + (notes ? 'Yes' : 'No'));
-    if (notes) {
-      lines.push('Details: ' + notes);
-    }
-    if (name) {
-      lines.push('');
-      lines.push('Name: ' + name);
-    }
-    lines.push('');
-    lines.push('(Delivery address & payment to be confirmed here on WhatsApp.)');
+            let lines = [];
+            lines.push('Hi Crochet by Dracilla! I\'d like to order:');
+            lines.push('');
+            cart.forEach((item, idx) => {
+                lines.push(
+                    (idx + 1) + '. ' + item.name +
+                    ' — Qty: ' + item.qty +
+                    ' — ' + formatLKR(item.price) + ' each' +
+                    ' — Subtotal: ' + formatLKR(item.qty * item.price)
+                );
+            });
+            lines.push('');
+            lines.push('Order total: ' + formatLKR(subtotal));
+            lines.push('');
+            lines.push('Customization needed: ' + (notes ? 'Yes' : 'No'));
+            if (notes) {
+                lines.push('Details: ' + notes);
+            }
+            if (name) {
+                lines.push('');
+                lines.push('Name: ' + name);
+            }
+            lines.push('');
+            lines.push('(Delivery address & payment to be confirmed here on WhatsApp.)');
 
-    return lines.join('\n');
-  }
+            return lines.join('\n');
+        }
 
-  function checkoutViaWhatsApp() {
-    if (cart.length === 0) return;
-    const message = buildOrderMessage();
-    const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
-    window.open(url, '_blank');
-  }
+        function checkoutViaWhatsApp() {
+            if (cart.length === 0) return;
+            const message = buildOrderMessage();
+            const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
+            window.open(url, '_blank');
+        }
 
-  cartCheckout && cartCheckout.addEventListener('click', checkoutViaWhatsApp);
+        cartCheckout && cartCheckout.addEventListener('click', checkoutViaWhatsApp);
 
 
         document.addEventListener('keydown', (e) => {
@@ -903,11 +897,17 @@
                 btn.addEventListener('click', () => {
                     const card = btn.closest('.product-card');
                     if (!card) return;
+                    // Look up the real product by id instead of trusting the
+                    // card's data-price attribute — that attribute lives in
+                    // the page's own HTML, so it can be edited in DevTools.
+                    // PRODUCTS (loaded from products.json) is the source of truth.
+                    const product = PRODUCTS.find(p => p.id === card.dataset.id);
+                    if (!product) return;
                     addToCart({
-                        id: card.dataset.id,
-                        name: card.dataset.name,
-                        price: parseInt(card.dataset.price, 10),
-                        image: card.dataset.image
+                        id: product.id,
+                        name: product.name,
+                        price: product.price,
+                        image: product.image
                     });
                 });
             });
