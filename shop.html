@@ -364,7 +364,7 @@
         <div class="container footer-grid">
             <div class="footer-brand">
                 <span class="brand-mark">Crochet by <span>Dracilla</span></span>
-                <p>Small-batch crochet clothing and hanging florals, hand-stitched skein by skein. Based in Maharagama,
+                <p>Small-batch crochet clothing and hanging florals, hand-stitched skein by skein. Based in Padukka,
                     shipped island-wide.</p>
                 <div class="footer-social">
                     <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -418,7 +418,7 @@
 
         <div class="container footer-bottom">
             <span>&copy; 2026 Crochet by Dracilla. All pieces handmade to order.</span>
-            <span>Designed with 🧶 in Maharagama</span>
+            <span>Designed with 🧶 in Padukka</span>
         </div>
     </footer>
 
@@ -751,9 +751,16 @@
         const cartCustomerName = document.getElementById('cartCustomerName');
         const cartCustomNotes = document.getElementById('cartCustomNotes');
 
-        // WhatsApp number to receive orders, in international format with no + or spaces
-        // e.g. Sri Lanka mobile 077 123 4567 -> '94771234567'
-        const WHATSAPP_NUMBER = '94XXXXXXXXX';
+        // WhatsApp number is fetched from /api/config at runtime (backed by
+        // the WHATSAPP_NUMBER environment variable in Vercel) instead of
+        // being hardcoded here — see api/config.js. Falls back to null if
+        // it can't be fetched (e.g. opened directly from disk, or the env
+        // var isn't set).
+        let WHATSAPP_NUMBER = null;
+        const whatsappReady = fetch('/api/config')
+            .then(res => res.ok ? res.json() : Promise.reject())
+            .then(data => { WHATSAPP_NUMBER = data.whatsapp || null; })
+            .catch(() => { WHATSAPP_NUMBER = null; });
 
         let cart = JSON.parse(localStorage.getItem('cbd_cart') || '[]');
 
@@ -878,8 +885,10 @@
             return lines.join('\n');
         }
 
-        function checkoutViaWhatsApp() {
+        async function checkoutViaWhatsApp() {
             if (cart.length === 0) return;
+            await whatsappReady;
+            if (!WHATSAPP_NUMBER) { alert('WhatsApp ordering is temporarily unavailable — please try again shortly.'); return; }
             const message = buildOrderMessage();
             const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
             window.open(url, '_blank');

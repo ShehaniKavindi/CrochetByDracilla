@@ -125,7 +125,7 @@
       <div class="hero-card">
         <span class="hero-script">welcome to the yarn shed</span>
         <h1>Handmade <em>crochet</em>,<br>stitched slow &amp; sweet.</h1>
-        <p>Cropped tops, cozy accessories and hanging florals — every piece looped by hand in small batches from my little corner in Maharagama.</p>
+        <p>Cropped tops, cozy accessories and hanging florals — every piece looped by hand in small batches from my little corner in Padukka.</p>
         <div class="hero-cta-row">
           <a href="shop.html" class="btn btn-primary">Shop New Arrivals</a>
           <a href="custom-orders.html" class="btn btn-ghost">Request a Custom Piece</a>
@@ -468,7 +468,7 @@
   <div class="container footer-grid">
     <div class="footer-brand">
       <span class="brand-mark">Crochet by <span>Dracilla</span></span>
-      <p>Small-batch crochet clothing and hanging florals, hand-stitched skein by skein. Based in Maharagama, shipped island-wide.</p>
+      <p>Small-batch crochet clothing and hanging florals, hand-stitched skein by skein. Based in Padukka, shipped island-wide.</p>
       <div class="footer-social">
         <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
         <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 3c.5 2.5 2 4 5 4.2V11c-1.9 0-3.5-.6-5-1.7V15a6 6 0 1 1-6-6c.3 0 .7 0 1 .1v3.2a2.8 2.8 0 1 0 2 2.7V3h3Z"/></svg></a>
@@ -508,7 +508,7 @@
 
   <div class="container footer-bottom">
     <span>&copy; 2026 Crochet by Dracilla. All pieces handmade to order.</span>
-    <span>Designed with 🧶 in Maharagama</span>
+    <span>Designed with 🧶 in Padukka</span>
   </div>
 </footer>
 
@@ -568,9 +568,15 @@
   const cartCustomerName = document.getElementById('cartCustomerName');
   const cartCustomNotes = document.getElementById('cartCustomNotes');
 
-  // WhatsApp number to receive orders, in international format with no + or spaces
-  // e.g. Sri Lanka mobile 077 123 4567 -> '94771234567'
-  const WHATSAPP_NUMBER = '94XXXXXXXXX';
+  // WhatsApp number is fetched from /api/config at runtime (backed by the
+  // WHATSAPP_NUMBER environment variable in Vercel) instead of being
+  // hardcoded here — see api/config.js. Falls back to null if it can't be
+  // fetched (e.g. opened directly from disk, or the env var isn't set).
+  let WHATSAPP_NUMBER = null;
+  const whatsappReady = fetch('/api/config')
+    .then(res => res.ok ? res.json() : Promise.reject())
+    .then(data => { WHATSAPP_NUMBER = data.whatsapp || null; })
+    .catch(() => { WHATSAPP_NUMBER = null; });
 
   let cart = JSON.parse(localStorage.getItem('cbd_cart') || '[]');
 
@@ -699,8 +705,10 @@
     return lines.join('\n');
   }
 
-  function checkoutViaWhatsApp() {
+  async function checkoutViaWhatsApp() {
     if (cart.length === 0) return;
+    await whatsappReady;
+    if (!WHATSAPP_NUMBER) { alert('WhatsApp ordering is temporarily unavailable — please try again shortly.'); return; }
     const message = buildOrderMessage();
     const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
     window.open(url, '_blank');
