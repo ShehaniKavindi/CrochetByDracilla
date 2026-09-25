@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Admin Login | Crochet by Dracilla</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,500;0,600;1,400;1,500&family=Nunito+Sans:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--vanilla-cream); padding: 24px; }
+        .login-card {
+            background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft); padding: 40px 36px; max-width: 360px; width: 100%; text-align: center;
+        }
+        .login-card h1 { font-size: 1.4rem; margin-bottom: 6px; }
+        .login-card p { color: var(--ink-70); font-size: 0.9rem; margin-bottom: 20px; }
+        .login-card input {
+            width: 100%; padding: 12px 14px; border-radius: var(--radius-sm); border: 1px solid var(--line);
+            font-family: inherit; font-size: 0.95rem; margin-bottom: 14px; background: var(--cream-soft);
+        }
+        .login-error { color: var(--rosewood-dark); font-size: 0.85rem; margin-top: 10px; display: none; }
+        .login-error.is-visible { display: block; }
+    </style>
+</head>
+
+<body>
+    <div class="login-card">
+        <h1>Studio Admin</h1>
+        <p>This page isn't for customers &mdash; enter your passcode to manage products.</p>
+        <input type="password" id="passInput" placeholder="Passcode" autocomplete="off">
+        <button class="btn btn-primary" id="submitBtn" style="width:100%;">Enter</button>
+        <p class="login-error" id="loginError">That's not it &mdash; try again.</p>
+    </div>
+
+    <script>
+        // Where to send the person after a successful login.
+        const params = new URLSearchParams(window.location.search);
+        const next = params.get("next") || "/admin.html";
+
+        function submit() {
+            const value = document.getElementById("passInput").value;
+            if (!value) return;
+
+            // Set the cookie the middleware checks for, then reload into
+            // the protected page. If the passcode is wrong, the
+            // middleware will just bounce back here — the actual check
+            // always happens server-side, this page never verifies it.
+            document.cookie = `admin_auth=${value}; Path=/; Max-Age=${60 * 60 * 8}; SameSite=Lax; Secure`;
+            window.location.href = next;
+        }
+
+        document.getElementById("submitBtn").addEventListener("click", submit);
+        document.getElementById("passInput").addEventListener("keydown", e => { if (e.key === "Enter") submit(); });
+        document.getElementById("passInput").focus();
+
+        // If middleware bounced us back here, it means the last attempt
+        // (or an expired cookie) didn't match — show a gentle hint after
+        // the first failed round-trip.
+        if (sessionStorage.getItem("dracillaAdminAttempted") === "1") {
+            document.getElementById("loginError").classList.add("is-visible");
+        }
+        sessionStorage.setItem("dracillaAdminAttempted", "1");
+    </script>
+</body>
+
+</html>

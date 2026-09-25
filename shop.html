@@ -24,7 +24,7 @@
     <div class="announce-bar">
         <div class="announce-track">
             <span>Made to order, with love 🧶</span>
-            <span>Free island-wide shipping over LKR 8,000</span>
+            <span>Free island-wide shipping over LKR 5,000</span>
             <span>Every piece hand-stitched by Dracilla</span>
         </div>
     </div>
@@ -133,14 +133,14 @@
                 <span>Subtotal</span>
                 <span id="cartSubtotal">LKR 0</span>
             </div>
-                <p class="cart-note">Shipping and any custom colour notes are confirmed over WhatsApp before we start
+                <p class="cart-note">Shipping and any custom color notes are confirmed over WhatsApp before we start
                 stitching.</p>
             <div class="cart-field">
                 <label for="cartCustomerName">Your name</label>
                 <input type="text" id="cartCustomerName" placeholder="e.g. Amaya Perera">
             </div>
             <div class="cart-field">
-                <label for="cartCustomNotes">Customization / size / colour notes (optional)</label>
+                <label for="cartCustomNotes">Customization / size / color notes (optional)</label>
                 <textarea id="cartCustomNotes" placeholder="Leave blank if no customization needed"></textarea>
             </div>
             <button type="button" class="btn btn-primary cart-checkout" id="cartCheckout">Checkout via WhatsApp</button>
@@ -424,9 +424,13 @@
 
     <script>
         /* ============================================================
-           Product data — single source of truth for the shop grid
+           Product data — single source of truth for the shop grid.
+           This array is a fallback (so the page still works opened
+           directly from disk). On a real deploy it's replaced by the
+           contents of products.json, which the admin page (admin.html)
+           helps you regenerate whenever you add a product.
            ============================================================ */
-        const PRODUCTS = [
+        let PRODUCTS = [
             { id: "cardigan-heart", name: "Sweetheart Granny Square Cardigan", price: 12500, category: "tops", image: "assets/products/heart-granny-cardigan.png", alt: "Red and white heart granny square crochet cardigan", badge: "bestseller" },
             { id: "stripe-crop", name: "Sherbet Stripe Crop Top", price: 6800, category: "tops", image: "assets/products/striped-crop-top.png", alt: "Purple, pink and white striped crochet crop top", badge: "new" },
             { id: "pom-beanie", name: "Blossom Pom Beanie", price: 4200, category: "accessories", image: "assets/products/beanie-pink-pompom.png", alt: "Cream crochet beanie with pink pom-pom and flowers", badge: "new" },
@@ -695,6 +699,23 @@
            ============================================================ */
         syncCheckboxesFromState();
         render();
+
+        /* ============================================================
+           Load products.json (kept up to date via admin.html). Falls
+           back silently to the PRODUCTS array above if it can't be
+           fetched (e.g. opening this file directly instead of via a
+           server/deploy).
+           ============================================================ */
+        fetch("products.json")
+            .then(res => res.ok ? res.json() : Promise.reject())
+            .then(data => {
+                if (Array.isArray(data) && data.length) {
+                    PRODUCTS = data;
+                    syncCheckboxesFromState();
+                    render();
+                }
+            })
+            .catch(() => { /* keep fallback PRODUCTS array */ });
 
         /* ============================================================
            Mobile nav drawer (shared pattern with index.html)
