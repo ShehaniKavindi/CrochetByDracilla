@@ -1,12 +1,3 @@
-// ============================================================
-// Vercel Routing Middleware — runs on Vercel's edge, BEFORE
-// admin.html is ever sent to a browser. This is what makes the
-// passcode real security instead of a deterrent: it's read from
-// an environment variable (set in the Vercel dashboard, never
-// committed to Git) and is never shipped to the client unless
-// they already proved they know it.
-// ============================================================
-
 export const config = {
     matcher: ["/admin.html"],
 };
